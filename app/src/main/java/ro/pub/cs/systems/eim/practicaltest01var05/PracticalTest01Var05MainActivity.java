@@ -2,6 +2,7 @@ package ro.pub.cs.systems.eim.practicaltest01var05;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
@@ -89,10 +90,15 @@ public class PracticalTest01Var05MainActivity extends AppCompatActivity {
         });
 
         navigate.setOnClickListener(view -> {
-            Intent intent = new Intent(getApplicationContext(), PracticalTest01Var05SecondaryActivity.class);
-            String text = editText.getText().toString();
-            intent.putExtra("TEXT", text);
-            startActivityForResult(intent, 1);
+//            Intent intent = new Intent(getApplicationContext(), PracticalTest01Var05SecondaryActivity.class);
+//            String text = editText.getText().toString();
+//            intent.putExtra("TEXT", text);
+//            startActivityForResult(intent, 1);
+
+            Intent intent = new Intent();
+            intent.putExtra("TEXT", editText.getText().toString());
+            intent.setComponent(new ComponentName(getApplicationContext(), PracticalTest01Var05Service.class));
+            startService(intent);
         });
     }
 
