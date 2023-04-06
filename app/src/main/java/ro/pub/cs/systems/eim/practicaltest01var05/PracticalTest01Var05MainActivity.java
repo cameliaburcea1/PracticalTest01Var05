@@ -2,6 +2,7 @@ package ro.pub.cs.systems.eim.practicaltest01var05;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -88,7 +89,10 @@ public class PracticalTest01Var05MainActivity extends AppCompatActivity {
         });
 
         navigate.setOnClickListener(view -> {
-            Toast.makeText(this, String.valueOf(clicks), Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(getApplicationContext(), PracticalTest01Var05SecondaryActivity.class);
+            String text = editText.getText().toString();
+            intent.putExtra("TEXT", text);
+            startActivityForResult(intent, 1);
         });
     }
 
@@ -107,9 +111,16 @@ public class PracticalTest01Var05MainActivity extends AppCompatActivity {
             clicks = 0;
         }
 
-
         Toast.makeText(this, "Total of clicks is: " + String.valueOf(clicks), Toast.LENGTH_LONG).show();
-
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        if (requestCode == 1) {
+            editText.setText("");
+            clicks = 0;
+            Toast.makeText(this, "The activity returned with result " + resultCode, Toast.LENGTH_LONG).show();
+        }
+    }
 }
